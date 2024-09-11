@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+          "name": "Launch Brave against localhost",
+          "type": "chrome",
+          "request": "launch",
+          "port": 9222,
+          "url": "http://localhost:3000/*",
+          "userDataDir": false,
+          "webRoot": "${workspaceFolder}/hello-world-ts",
+          "runtimeExecutable": "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+        }
+      ]
+}

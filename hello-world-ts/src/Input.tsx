@@ -1,20 +1,26 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { DataType } from "./types";
 
+interface InputProps {
+  data: DataType | null;
+  setData: React.Dispatch<React.SetStateAction<DataType | null>>;
+  url: string;
+}
 
-function Input() {
+function Input({ data, setData, url }: InputProps) {
     const [spinner, setSpinner] = useState(false);
-    const [data, setData] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [triger, setTriger] = useState<boolean | null>(false);
-    const [Input, setInput] = useState<string>("enter text");
+    const [input, setInput] = useState<string>("");
+    const [trigger, setTrigger] = useState<boolean>(false);
 
     useEffect(()=>{
+        if(trigger){
         const fetchData = async () => {
             try{
                 setSpinner(true)
-                const body = JSON.stringify({ "question": Input });
-                const response = await fetch("http://127.0.0.1:8080/analyze", {
+                const body = JSON.stringify({ "question": input });
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -30,25 +36,31 @@ function Input() {
             finally{
                 setSpinner(false);
             }
+            }
+            fetchData();
         }
-        fetchData();
-    },[triger])
+    },[trigger])
 
 
   return (
-    <div>
-      <div style={{ display: 'flex', gap: '10px' }}>
-          <input
-            type="text"
-            value={Input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <button disabled={spinner} onClick={() => setTriger(true)}>{spinner ? 'Loading...' : 'Submit'}</button>
+    <div className="input-container">
+      <div className="input-form">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="input-field"
+          placeholder="Enter text"
+        />
+        <button 
+          disabled={spinner} 
+          onClick={() => setTrigger(true)}
+          className="submit-button"
+        >
+          {spinner ? 'Loading...' : 'Submit'}
+        </button>
       </div>
-      <div>
-        {error && <div>{error}</div>}
-        {data && <div>Data: {JSON.stringify(data)}</div>}
-      </div>
+      {error && <div className="error-message">{error}</div>}
     </div>
   )
 };

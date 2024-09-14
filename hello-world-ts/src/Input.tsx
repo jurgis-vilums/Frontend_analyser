@@ -4,7 +4,7 @@ import { DataType } from "./types";
 
 interface InputProps {
   data: DataType | null;
-  setData: React.Dispatch<React.SetStateAction<DataType | null>>;
+  setData: (data: DataType) => void;
   url: string;
 }
 
@@ -35,6 +35,9 @@ function Input({ data, setData, url }: InputProps) {
             }
             finally{
                 setSpinner(false);
+                setTrigger(false);
+                setInput("");
+                setError(null);
             }
             }
             fetchData();

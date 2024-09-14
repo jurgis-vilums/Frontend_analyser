@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { DataType } from "./types";
 
-
-
-const ImageComponent = ({ url }: {url:string}) => {
+const ImageComponent = ({ url, data }: {url:string, data:DataType}) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,7 +21,7 @@ const ImageComponent = ({ url }: {url:string}) => {
         console.error('Error fetching image:', error);
         setError('Failed to load image');
       });
-  }, []);
+  }, [data]);
 
   if (error) {
     return <div>{error}</div>;

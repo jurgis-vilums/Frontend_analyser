@@ -44,28 +44,40 @@ function Input({ data, setData, url }: InputProps) {
         }
     },[trigger])
 
+    const handleSubmit = () => {
+        if (input.trim()) {
+            setTrigger(true);
+        }
+    };
 
-  return (
-    <div className="input-container">
-      <div className="input-form">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="input-field"
-          placeholder="Enter text"
-        />
-        <button 
-          disabled={spinner} 
-          onClick={() => setTrigger(true)}
-          className="submit-button"
-        >
-          {spinner ? 'Loading...' : 'Submit'}
-        </button>
-      </div>
-      {error && <div className="error-message">{error}</div>}
-    </div>
-  )
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleSubmit();
+        }
+    };
+
+    return (
+        <div className="input-container">
+            <div className="input-form">
+                <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    className="input-field"
+                    placeholder="Enter text"
+                />
+                <button 
+                    disabled={spinner} 
+                    onClick={handleSubmit}
+                    className="submit-button"
+                >
+                    {spinner ? 'Loading...' : 'Submit'}
+                </button>
+            </div>
+            {error && <div className="error-message">{error}</div>}
+        </div>
+    )
 };
 
 export default Input;

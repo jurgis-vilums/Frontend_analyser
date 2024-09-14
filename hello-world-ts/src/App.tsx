@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from './Input';
 import { DataType } from './types';
 import Dropdown from './Dropdown'; 
 import ImageComponent from './Image';
 
 const App = () => {
-  // const url = "https://chatgpt-as-data-analyst-v1-plz-863162145764.europe-north1.run.app/";
-  const url = "http://127.0.0.1:8080";
+  const url = "https://chatgpt-as-data-analyst-v1-plz-863162145764.europe-north1.run.app";
+  // const url = "http://127.0.0.1:8080";
   const [data, setData] = useState<DataType | null>(null);
+  useEffect(() => {
+    // Wake up server on component mount
+    fetch(url + '/wake-up', { method: 'GET' });
+  }, []);
 
   return (
     <div className="app-container">

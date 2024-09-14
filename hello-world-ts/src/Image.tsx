@@ -27,7 +27,15 @@ const ImageComponent = ({ url, data }: {url:string, data:DataType}) => {
     return <div>{error}</div>;
   }
 
-  return imageSrc ? <img src={imageSrc} alt="Generated" /> : <div>Loading image...</div>;
+  return (
+    <div className="image-container">
+      {imageSrc ? (
+        <img src={imageSrc} alt="Generated" className="centered-image" />
+      ) : (
+        <div>Loading image...</div>
+      )}
+    </div>
+  );
 };
 
 export default ImageComponent;

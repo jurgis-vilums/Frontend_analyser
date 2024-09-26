@@ -17,7 +17,7 @@ const ImageComponent = ({ url, data }: {url:string, data:DataType}) => {
         const imageUrl = URL.createObjectURL(blob);
         setImageSrc(imageUrl);
       })
-      .catch(error => {
+      .catch(error => {   
         console.error('Error fetching image:', error);
         setError('Failed to load image');
       });

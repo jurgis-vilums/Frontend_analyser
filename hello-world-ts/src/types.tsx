@@ -1,5 +1,5 @@
 export interface DataType {
-    analysis: string;
+analysis: string;
     code_execution_time: number;
     code_generation_time: number;
     data: any;
